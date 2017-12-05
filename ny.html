@@ -19,14 +19,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFsLXdvb2QiLCJhIjoiY2oyZ2t2em50MDAyMzJ3cnltM
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v9',
-    center: [34.7783936,32.0617211],
+    center: [-73.98954700,40.72393340],
     zoom: 11
 });
 map.on('load', function() {
 
   map.addSource('trees', {
       "type": "geojson",
-      "data": "trees.geojson"
+      "data": "nycprices.geojson"
   });
 
     map.addLayer({
@@ -41,31 +41,20 @@ map.on('load', function() {
                 "type": "exponential",
                 "stops": [
                     [0, 0],
-                    [1, 1]
+                    [6000, 2]
                 ]
             },
           // increase intensity as zoom level increases
-            "heatmap-intensity": {
-                "stops": [
-                    [0, 1]
-                ]
-            },
+    
           // use sequential color palette to use exponentially as the weight increases
             "heatmap-color": [
                 "interpolate",
                 ["linear"],
                 ["heatmap-density"],
                 0.2, "rgba(255,0,0,0)",
-                0.3, "rgba(255,255,0,0.3)",
-                1, "rgba(255,255,0,0.7)"
+                0.5, "rgba(0,255,0,0.8)",
+                1, "rgba(255,0,0,0.9)"
             ],
-            // increase radius as zoom increases
-            "heatmap-radius": {
-                "stops": [
-                    [1, 1],
-                    [30, 30]
-                ]
-            },
             // decrease opacity to transition into the circle layer
             "heatmap-opacity": {
                 "default": 1,
